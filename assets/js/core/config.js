@@ -8,8 +8,8 @@
 // ============================================================================
 (function (X) {
   X.SUPABASE_CONFIG = {
-    SUPABASE_URL: 'YOUR_SUPABASE_URL',            // 例：https://abcd1234.supabase.co
-    SUPABASE_ANON_KEY: 'YOUR_SUPABASE_ANON_KEY',  // 例：eyJhbGciOiJI...
+    SUPABASE_URL: 'https://wglpmzqkxgwjpscdswcv.supabase.co',
+    SUPABASE_ANON_KEY: 'sb_publishable_RdjWDcx7tfmf4YTEhSspig_JruzMKJD',
     STORAGE_BUCKET_AVATAR: 'avatars',
     STORAGE_BUCKET_WORKS: 'works',
     EMAIL_DOMAIN: 'xiao.local'                     // 合成邮箱后缀（不真发邮件）
