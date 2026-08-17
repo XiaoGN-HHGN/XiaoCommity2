@@ -100,13 +100,19 @@ self.addEventListener('fetch', e => {
     return;
   }
 
+  // 跳过非 http(s) 协议（chrome-extension://, data:, blob: 等无法缓存）
+  if (!url.protocol.startsWith('http')) {
+    return;
+  }
+
   // 跨域资源：stale-while-revalidate
   e.respondWith(
     caches.match(req).then(cached => {
       const fetchPromise = fetch(req).then(resp => {
-        if (resp && resp.status === 200) {
+        // 仅缓存同源 + 状态 200 + GET + http(s) 协议的响应
+        if (resp && resp.status === 200 && resp.type === 'basic') {
           const respClone = resp.clone();
-          caches.open(CACHE_NAME).then(c => c.put(req, respClone));
+          caches.open(CACHE_NAME).then(c => c.put(req, respClone)).catch(() => {});
         }
         return resp;
       }).catch(() => cached);
