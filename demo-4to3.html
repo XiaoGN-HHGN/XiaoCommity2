@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>4to3 智能自然光照渲染引擎 · 演示</title>
+  <link rel="stylesheet" href="新概念渲染4to3技术/4to3.css" />
+</head>
+<body>
+  <!-- L2 大气散射氛围光斑层 -->
+  <div class="layer-l2" id="layerL2"></div>
+  <!-- L3 虚拟太阳光层 -->
+  <div class="layer-l3" id="layerL3"></div>
+  <!-- L4 鼠标局部环境反光层 -->
+  <div class="layer-l4" id="layerL4"></div>
+
+  <!-- 主 UI 卡片（伪 3D 倾斜容器） -->
+  <div class="wrap-card" id="wrapCard">
+    <h2>4to3 Intelligent Light Render</h2>
+    <p>五层光照管线｜自动适配｜自配色池｜伪 3D 视差</p>
+    <h1>4to3 Demo</h1>
+
+    <div class="control-group">
+      <button class="ui-btn" id="themeBtn">切换明暗主题</button>
+      <button class="ui-btn" id="eyeCareBtn">绿意盎然护眼模式</button>
+      <button class="ui-btn" id="mcFontBtn">MC 方块字体</button>
+      <button class="ui-btn" id="toggleLightBtn">鼠标光影开关</button>
+      <button class="ui-btn" id="sunLightBtn">虚拟太阳光开关</button>
+      <button class="ui-btn" id="perfBtn">性能模式</button>
+      <button class="ui-btn" id="clearLogBtn">清空日志</button>
+      <button class="ui-btn" onclick="history.back()">← 返回 Xiao</button>
+    </div>
+
+    <div class="slider-group">
+      <div class="slider-item">
+        <label>玻璃通透度</label>
+        <input type="range" id="transSlider" min="0" max="100" value="45">
+      </div>
+      <div class="slider-item">
+        <label>背景模糊强度</label>
+        <input type="range" id="blurSlider" min="4" max="32" value="18">
+      </div>
+      <div class="slider-item">
+        <label>伪 3D 视差强度</label>
+        <input type="range" id="parallaxSlider" min="0" max="100" value="60">
+      </div>
+    </div>
+
+    <div class="log-title">运行日志</div>
+    <div class="log-box" id="logBox"></div>
+    <div class="version-info">
+      启动时间：<span id="startTime"></span><br>
+      设备等级：<span id="deviceTier"></span><br>
+      集成于：<a href="index.html">Xiao · 企海狐协会</a>（顶部 ✨4to3 按钮或 Ctrl+K 命令面板可全局启用）
+    </div>
+  </div>
+
+  <script src="新概念渲染4to3技术/4to3.js"></script>
+</body>
+</html>

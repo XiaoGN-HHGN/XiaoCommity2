@@ -1,0 +1,32 @@
+{
+  "name": "Xiao · 企海狐协会",
+  "short_name": "Xiao",
+  "description": "企鹅 + 海豚 + 雪狐 · 理科技术社区",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0d1117",
+  "theme_color": "#0d1117",
+  "orientation": "any",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><text y='160' font-size='160'>🐧</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><text y='430' font-size='430'>🐧</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["social", "education", "productivity"],
+  "shortcuts": [
+    { "name": "聊天大厅", "url": "./index.html#/chat" },
+    { "name": "作品库", "url": "./index.html#/works" },
+    { "name": "编辑器", "url": "./index.html#/editor" },
+    { "name": "排行榜", "url": "./index.html#/leaderboard" }
+  ]
+}

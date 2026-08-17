@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="theme-color" content="#0d1117" />
+  <meta name="description" content="Xiao · 企海狐协会 · 企鹅 + 海豚 + 雪狐 · 理科技术社区" />
+  <title>Xiao · 企海狐协会</title>
+
+  <!-- PWA：可安装 + 离线缓存 -->
+  <link rel="manifest" href="manifest.json" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><text y='52' font-size='52'>🐧</text></svg>" />
+
+  <!-- Supabase SDK：必须最先加载，supabase.js 会读取 window.supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.0/dist/umd/supabase.min.js"></script>
+
+  <!-- 应用样式 -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+  <!-- ====================== 4to3 智能自然光照渲染层（背景） ====================== -->
+  <!-- L2 大气散射氛围光斑层 -->
+  <div class="r4to3-layer-l2" id="r4to3_l2"></div>
+  <!-- L3 虚拟太阳光层 -->
+  <div class="r4to3-layer-l3" id="r4to3_l3"></div>
+  <!-- L4 鼠标局部环境反光层 -->
+  <div class="r4to3-layer-l4" id="r4to3_l4"></div>
+
+  <!-- ====================== 顶部导航 ====================== -->
+  <header class="app-bar">
+    <div class="app-bar-inner">
+      <a class="app-logo" href="#/home">
+        <span class="logo-icon">🐧</span>
+        <span class="logo-text">Xiao</span>
+        <span class="logo-sub dim">· 企海狐协会</span>
+      </a>
+
+      <nav id="nav" class="app-nav"></nav>
+
+      <div class="app-bar-right">
+        <!-- 主题切换：dark / light / cyber -->
+        <div class="theme-switch" id="themeSwitch">
+          <button data-theme="dark" title="暗色">🌙</button>
+          <button data-theme="light" title="亮色">☀️</button>
+          <button data-theme="cyber" title="赛博朋克">🛸</button>
+        </div>
+        <!-- 4to3 智能自然光照渲染开关 -->
+        <button id="render4to3Btn" class="render-btn" title="4to3 智能自然光照渲染引擎">✨4to3</button>
+        <div class="lang-switch">
+          <button data-lang="zh-CN">中</button>
+          <button data-lang="en">EN</button>
+          <button data-lang="ru">RU</button>
+        </div>
+        <!-- 命令面板入口（Ctrl/Cmd+K） -->
+        <button id="cmdkBtn" class="btn icon-only" title="命令面板 (Ctrl+K)">⌘</button>
+        <div id="userChip" class="user-chip"></div>
+        <button id="contactBtn" class="btn icon-only" title="联系我们">✉</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ====================== 主视图容器 ====================== -->
+  <main id="view" class="app-view"></main>
+
+  <!-- ====================== 模态 / Toast 容器 ====================== -->
+  <div id="toastRoot" class="toast-root"></div>
+  <div id="modalRoot" class="modal-root" aria-hidden="true"></div>
+
+  <!-- ====================== 脚本：按依赖顺序加载 ====================== -->
+  <!-- 1) 核心层 -->
+  <script src="assets/js/core/config.js"></script>
+  <script src="assets/js/core/supabase.js"></script>
+  <script src="assets/js/core/utils.js"></script>
+  <script src="assets/js/core/ui.js"></script>
+  <script src="assets/js/core/i18n.js"></script>
+  <script src="assets/js/i18n/zh-CN.js"></script>
+  <script src="assets/js/i18n/en.js"></script>
+  <script src="assets/js/i18n/ru.js"></script>
+  <script src="assets/js/core/theme.js"></script>
+  <script src="assets/js/core/render4to3.js"></script>
+  <script src="assets/js/core/presence.js"></script>
+  <script src="assets/js/core/skeleton.js"></script>
+  <script src="assets/js/core/store.js"></script>
+  <script src="assets/js/core/auth.js"></script>
+  <script src="assets/js/core/router.js"></script>
+  <script src="assets/js/core/cmdk.js"></script>
+
+  <!-- 2) 模块层 -->
+  <script src="assets/js/modules/home.js"></script>
+  <script src="assets/js/modules/auth.js"></script>
+  <script src="assets/js/modules/chat.js"></script>
+  <script src="assets/js/modules/social.js"></script>
+  <script src="assets/js/modules/works.js"></script>
+  <script src="assets/js/modules/editor.js"></script>
+  <script src="assets/js/modules/profile.js"></script>
+  <script src="assets/js/modules/admin.js"></script>
+  <script src="assets/js/modules/misc.js"></script>
+  <script src="assets/js/modules/announcements.js"></script>
+  <script src="assets/js/modules/leaderboard.js"></script>
+  <script src="assets/js/modules/tasks.js"></script>
+  <script src="assets/js/modules/polls.js"></script>
+
+  <!-- 3) 入口 -->
+  <script src="assets/js/app.js"></script>
+
+  <!-- 4) PWA Service Worker（生产环境生效，本地开发忽略错误） -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('sw.js').catch(function (e) {
+          console.debug('[Xiao] SW register failed (expected on local):', e && e.message);
+        });
+      });
+    }
+  </script>
+</body>
+</html>
